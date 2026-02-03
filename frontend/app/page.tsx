@@ -42,6 +42,7 @@ export default function Home() {
       // Reset form and go back to step 1
 
       reset();
+      
       setStep(1);
     } catch (error) {
       console.error(error);
