@@ -13,7 +13,8 @@ import CrewDetailsForm from "./components/CrewDetailsForm";
 export default function Home() {
   const [step, setStep] = useState<number>(1);
 
-  const { register, handleSubmit, setValue, watch } = useForm<FormValues>();
+  const { register, handleSubmit, setValue, watch, resetField, reset } =
+    useForm<FormValues>();
 
   const onSubmit = async (data: FormValues) => {
     console.log(data, "form data");
@@ -38,8 +39,9 @@ export default function Home() {
       console.log("Event created ✅", result);
 
       alert("Event posted successfully!");
-
       // Reset form and go back to step 1
+
+      reset();
       setStep(1);
     } catch (error) {
       console.error(error);
@@ -154,7 +156,10 @@ export default function Home() {
                       <PlannerDetailsForm
                         register={register}
                         onNext={() => setStep(4)}
-                        onBack={() => setStep(2)}
+                        onBack={() => {
+                          resetField("plannerDetails");
+                          setStep(2);
+                        }}
                       />
                     );
 
@@ -163,7 +168,10 @@ export default function Home() {
                       <PerformerDetailsForm
                         register={register}
                         onNext={() => setStep(4)}
-                        onBack={() => setStep(2)}
+                        onBack={() => {
+                          resetField("performerDetails");
+                          setStep(2);
+                        }}
                       />
                     );
 
@@ -172,7 +180,10 @@ export default function Home() {
                       <CrewDetailsForm
                         register={register}
                         onNext={() => setStep(4)}
-                        onBack={() => setStep(2)}
+                        onBack={() => {
+                          resetField("crewDetails");
+                          setStep(2);
+                        }}
                       />
                     );
 
@@ -192,7 +203,7 @@ export default function Home() {
               }
             })()}
           </form>
-        </div>      
+        </div>
       </div>
     </div>
   );
