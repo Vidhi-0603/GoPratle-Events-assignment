@@ -6,10 +6,20 @@ import { FormValues } from "../types";
 type Props = {
   watch: UseFormWatch<FormValues>;
   onBack: () => void;
+  isSubmitting: boolean;
 };
 
-export default function ReviewAndSubmitForm({ watch, onBack }: Props) {
-  const data = watch();
+export default function ReviewAndSubmitForm({ watch, onBack, isSubmitting }: Props) {
+  const data = {
+    eventName: watch("eventName"),
+    eventType: watch("eventType"),
+    eventVenue: watch("eventVenue"),
+    eventDate: watch("eventDate"),
+    hireType: watch("hireType"),
+    plannerDetails: watch("plannerDetails"),
+    performerDetails: watch("performerDetails"),
+    crewDetails: watch("crewDetails"),
+  };
   const { hireType } = data;
 
   const formatDate = (dateString: string) => {
@@ -277,6 +287,7 @@ export default function ReviewAndSubmitForm({ watch, onBack }: Props) {
         </button>
         <button
           type="submit"
+          disabled={isSubmitting}
           className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transform hover:scale-[1.02] transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center"
         >
           <span>Submit Event</span>

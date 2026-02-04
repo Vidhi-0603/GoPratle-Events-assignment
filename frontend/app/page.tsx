@@ -13,8 +13,15 @@ import CrewDetailsForm from "./components/CrewDetailsForm";
 export default function Home() {
   const [step, setStep] = useState<number>(1);
 
-  const { register, handleSubmit, setValue, watch, resetField, reset } =
-    useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    resetField,
+    reset,
+    formState: { isSubmitting },
+  } = useForm<FormValues>();
 
   const onSubmit = async (data: FormValues) => {
     console.log(data, "form data");
@@ -195,6 +202,7 @@ export default function Home() {
                     <ReviewAndSubmitForm
                       watch={watch}
                       onBack={() => setStep(3)}
+                      isSubmitting={isSubmitting}
                     />
                   );
 
